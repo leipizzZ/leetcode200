@@ -10,7 +10,7 @@
  * };
  */
 
-// 参考答案 
+// 参考答案 递归
 class Solution {
 public:
     void traversal(TreeNode* root, vector<int>& res) // 加上引用 &才能改变 vector<int> 的值
@@ -25,5 +25,29 @@ public:
         traversal(root, result);
 
         return result;
+    }
+};
+
+//参考答案 迭代
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stk;
+        while (root || !stk.empty())
+        {
+            while (root)
+            {
+                stk.push(root);
+                root = root->left;
+            }
+            root = stk.top();
+            stk.pop();
+            res.push_back(root->val);
+            root = root->right;
+        }
+
+        return res;
     }
 };
